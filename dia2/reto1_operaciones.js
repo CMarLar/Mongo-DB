@@ -20,6 +20,8 @@ Photo.create({username: username,
 }
 
 // createPhoto("Paco","http://www.hoala.es/wp-content/uploads/2018/02/paco-conde-240.jpg","Retrato","Una foto de paco")
+// createPhoto("Paco","http://www.hoala.es/wp-content/uploads/2018/02/paco-conde-240.jpg","Retrato","Una foto de paco")
+// createPhoto("María","http://www.hoala.es/wp-content/uploads/2018/02/paco-conde-240.jpg","Retrato","Una foto de paco")
 
 //Dado un usuario obtener todas sus fotos.
 function findPhoto(username){
@@ -52,8 +54,8 @@ Photo.findOneAndUpdate({title: title}, {description: description})
 
 //Dado un usuario y un titulo de foto eliminar su foto.
 
-function deletePhoto(name, title){
-Photo.findOneAndDelete({name: name, title: title })
+function deletePhoto(username, title){
+Photo.findOneAndDelete({username: username, title: title })
 .then((items)=>{
     console.log("Datos eliminados");
     console.log(items);
@@ -64,3 +66,18 @@ Photo.findOneAndDelete({name: name, title: title })
 }
 
 // deletePhoto("Manuel","Retrato del artista")
+
+
+//Dado un usuario eliminar todas sus fotos.
+function deleteAllPhotos (username){
+Photo.deleteMany({username: username})
+.then((items)=>{
+    console.log("Datos eliminados");
+    console.log(items);
+})
+.catch(()=>{
+    console.log("Error");
+})
+}
+
+deleteAllPhotos("Paco")
