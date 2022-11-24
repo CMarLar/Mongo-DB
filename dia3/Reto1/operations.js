@@ -206,7 +206,7 @@ let nota10 = new Mark
 
 
 // Mark.aggregate([{$unwind: "$teachers"},
-//                 {$project:{_id: 0, teachers: 1}}])
+//                 {$project:{"teachers.teacher_first_name": 1, "teachers.teacher_last_name": 1, "_id": 0}}])
 // .then((result) =>
 // {
 //     console.log(result);
@@ -237,7 +237,7 @@ let nota10 = new Mark
 
 //Obtén el top 5 de los nombres de las asignaturas cuya nota media sea mayor que 5.
 
-// Mark.aggregate([{$group: {"_id": "$subject_name", "Media":{"$avg": "$mark"}}},{$match: {"Media":{"$gt": 5}}},{"$sort": {"Media": -1}},{$limit: 5}])
+// Mark.aggregate([{$group: {"_id": "$subject_name", "Media":{"$avg": "$mark"}}},{$match: {"Media":{"$gt": 7}}},{"$sort": {"Media": -1}},{$limit: 5}])
 // .then((result) =>
 // {
 //     console.log(result);
@@ -297,17 +297,18 @@ let nota10 = new Mark
 //     console.log(error);
 // })
 
-//Obtén los nombres de los alumnos y la cantidad total de asignaturas por alumno cuyo profesor sea uno que elijáis.
-Mark.aggregate([{$unwind:"$teachers"},
-                {$project:{"student_first_name": 1, "student_last_name": 1, "subject_name":1, "teachers": 1, "_id": 0}},
-                {$match:{"teachers.teacher_first_name": "José"}}])
+// //Obtén los nombres de los alumnos y la cantidad total de asignaturas por alumno cuyo profesor sea uno que elijáis.
+// Mark.aggregate([{$unwind:"$teachers"},
+//                 // {$project:{"student_first_name": 1, "student_last_name": 1, "subject_name":1, "teachers": 1, "_id": 0}},
+//                 {$match:{"teachers.teacher_first_name": "José"}},
+//                 {$group:{"_id": "$student_first_name", "Número de asignaturas": {"$sum": 1}}}])
 
-                //https://stackoverflow.com/questions/61381569/mongodb-aggregation-query-optimization-match-unwind-match-vs-unwind-mat
-.then((result) =>
-{
-    console.log(result);
-})
-.catch((error) =>
-{
-    console.log(error);
-})
+//                 //https://stackoverflow.com/questions/61381569/mongodb-aggregation-query-optimization-match-unwind-match-vs-unwind-mat
+// .then((result) =>
+// {
+//     console.log(result);
+// })
+// .catch((error) =>
+// {
+//     console.log(error);
+// })
